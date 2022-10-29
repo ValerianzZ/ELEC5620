@@ -18,6 +18,7 @@ const style = {
   headerIcon: `text-[#8a939b] text-3xl font-black px-4 hover:text-white cursor-pointer`,
 }
 
+
 const Header = () => {
   return (
     <div className={style.wrapper}>
@@ -41,7 +42,6 @@ const Header = () => {
           <div className={style.headerItem}> Collections </div>
         </Link>
         <div className={style.headerItem}> Stats </div>
-        <div className={style.headerItem}> Resources </div>
         <div className={style.headerItem}> Create </div>
         <Link href="/Profile">
           <div className={style.headerIcon}>
@@ -50,6 +50,8 @@ const Header = () => {
         </Link>
         <div className={style.headerIcon}>
           <MdOutlineAccountBalanceWallet />
+
+
         </div>
       </div>
     </div>
