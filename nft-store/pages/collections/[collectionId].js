@@ -11,7 +11,6 @@ import { HiDotsVertical } from 'react-icons/hi'
 import NFTitem from '../NFT/NFTitem'
 
 
-
 const style = {
   bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
   bannerImage: `w-full object-cover`,
