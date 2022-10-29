@@ -179,7 +179,7 @@ const Collection = () => {
         <div className={style.collectionStat}>
           <div className={style.statValue}>
             <img
-              src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+              src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=023"
               alt="eth"
               className={style.ethLogo}
             />
@@ -190,7 +190,7 @@ const Collection = () => {
         <div className={style.collectionStat}>
           <div className={style.statValue}>
             <img
-              src="https://storage.opensea.io/files/6f8e2979d428180222796ff4a33ab929.svg"
+              src="https://cryptologos.cc/logos/ethereum-eth-logo.svg?v=023"
               alt="eth"
               className={style.ethLogo}
             />

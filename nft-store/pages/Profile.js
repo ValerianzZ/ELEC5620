@@ -5,7 +5,6 @@ import { useWeb3 } from '@3rdweb/hooks'
 import { client } from '../lib/sanityClient'
 import { ThirdwebSDK } from '@3rdweb/sdk'
 import Header from '../pages/Header'
-import { HiTag } from 'react-icons/hi'
 import { CgWebsite } from 'react-icons/cg'
 import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 import { HiDotsVertical } from 'react-icons/hi'
@@ -14,7 +13,7 @@ const style = {
     bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
     bannerImage: `w-full object-cover`,
     infoContainer: `w-screen px-4`,
-    midRow: `w-full flex justify-center`,
+    midRow: `w-full flex justify-center text-white`,
     endRow: `w-full flex justify-end text-white`,
     profileImg: `w-40 h-40 object-cover rounded-full border-2 border-[#202225] mt-[-4rem]`,
     socialIconsContainer: `flex text-3xl mb-[-2rem]`,
@@ -30,13 +29,9 @@ const style = {
     ethLogo: `h-6 mr-2`,
     statName: `text-lg w-full text-center mt-1`,
     description: `text-[#8a939b] text-xl w-max-1/4 flex-wrap mt-4`,
-    ctaContainer: `flex`,
-    accentedButton: ` relative text-lg font-semibold px-12 py-4 bg-[#2181e2] rounded-lg mr-5 text-white hover:bg-[#42a0ff] cursor-pointer`,
-    button: ` relative text-lg font-semibold px-12 py-4 bg-[#363840] rounded-lg mr-5 text-[#e4e8ea] hover:bg-[#4c505c] cursor-pointer`,
   }
 
   const Profile = () => {
-    const { address, connectWallet } = useWeb3()
     const router = useRouter()
     const { provider } = useWeb3()
     const { collectionId } = router.query
@@ -75,18 +70,9 @@ const style = {
     };
 
     return (
-      <div className="overflow-hidden">
-        <Header />
-        <div className={style.bannerImageContainer}>
-        <img
-          className={style.bannerImage}
-          src={
-            collection?.bannerImageUrl
-              ? collection.bannerImageUrl
-              : 'https://via.placeholder.com/200'
-          }
-          alt="banner"
-        />
+      <div>
+      <div>
+            <Header />
         </div>
       <div className={style.infoContainer}>
         <div className={style.midRow}>
@@ -104,18 +90,19 @@ const style = {
       <div className={style.midRow}>
             <div className={`text-white`}>Current name: {collection?.userName}</div>
       </div>
-            <div className={style.midRow}>
+      <div className={style.midRow}>
         <input className={style.title}
           type="text"
           placeholder='change name'
           value={value}
           onChange={handleChange}
         />
-            <div className={style.ctaContainer}>
+        <div className={style.ctaContainer}>
             <button className={style.button} onClick={() => {changeUsername(value)}}>Change Username</button>
-          </div>
+        </div>
       </div>
-    </div>
+
+      </div>
     )
   }
 

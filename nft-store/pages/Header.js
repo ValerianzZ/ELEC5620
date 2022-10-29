@@ -83,7 +83,7 @@ const Header = () => {
       <Link href="/">
         <div className={style.logoContainer}>
           <Image src={Logo} height={40} width={40} />
-          <div className={style.logoText}>Opensea</div>
+          <div className={style.logoText}>NFT-CLUB</div>
         </div>
       </Link>
       <div className={style.searchBar}>
@@ -92,8 +92,7 @@ const Header = () => {
         </div>
         <input
           className={style.searchInput}
-          placeholder="Search items and collections"
-          onChange={onSearch()}
+          placeholder="Search"
         />
       </div>
       <div className={style.headerItems}>
