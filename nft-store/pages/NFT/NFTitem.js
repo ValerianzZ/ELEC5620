@@ -27,7 +27,7 @@ const NFTitem= ({ nftItem, title, listings }) => {
         const listing = listings.find((listing) => listing.asset.id === nftItem.id)
         if (Boolean(listing)) {
           setIsListed(true)
-          setPrice(listing.buyoutCurrencyValuePerToken.displayValue)
+          setPrice(listing.buyoutCurrencyValuePerToken.displayValue/1000000000000000000)
         }
       }, [listings, nftItem])
     

@@ -84,7 +84,7 @@ const Collection = () => {
   }, [marketPlaceModule])
 
   const fetchCollectionData = async (sanityClient = client, collectionId) => {
-    const query = `*[_type == "Product" && contractAddress == "${collectionId}" ] {
+    const query = `*[_type == "products" && contractAddress == "${collectionId}" ] {
       "imageUrl": profileImage.asset->url,
       "bannerImageUrl": bannerImage.asset->url,
       volumeTraded,
@@ -95,7 +95,7 @@ const Collection = () => {
       "allOwners": owners[]->,
       description
     }`
-
+    
     const collectionData = await sanityClient.fetch(query)
 
     // the query returns 1 object inside of an array
@@ -103,7 +103,7 @@ const Collection = () => {
   }
 
   useEffect(() => {
-    fetchCollectionData()
+    fetchCollectionData(client,collectionId)
   }, [collectionId])
 
   return (

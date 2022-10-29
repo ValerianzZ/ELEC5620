@@ -37,27 +37,34 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
       },
     })
 
+  const failPurchase = (toastHandler = toast) =>
+    toastHandler.success(`Purchase fail!`, {
+      style: {
+        background: '#04111d',
+        color: '#fff',
+      },
+    })
+
   const buyItem = async (
     listingId = selectedMarketNft.id,
     quantityDesired = 1,
-    module = marketPlaceModule
+    module = marketPlaceModule,
+    errorTriger = false
   ) => {
     console.log(listingId, quantityDesired, module, 'david')
-    // yo RAZA lets goooo!!!
-    //yo Qazi, ok
-    // sure okay about to run it...
-    // just clicked buy now...
-    // still error
-    // where can i see the contract address of the marketplace module
-    // in [nftId.js]
     await module
       .buyoutDirectListing({
         listingId: listingId,
         quantityDesired: quantityDesired,
       })
-      .catch((error) => console.error(error))
-
-    confirmPurchase()
+      .catch((error) => console.error(error),
+      errorTriger = true)
+    if(errorTriger){
+      failPurchase()
+    }else{
+      confirmPurchase()
+    }
+    
   }
 
   return (

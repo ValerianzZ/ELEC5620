@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import openseaLogo from '../assets/opensea.png'
+import Logo from '../assets/logo.png'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { CgProfile } from 'react-icons/cg'
 import { MdOutlineAccountBalanceWallet } from 'react-icons/md'
@@ -23,7 +23,7 @@ const Header = () => {
     <div className={style.wrapper}>
       <Link href="/">
         <div className={style.logoContainer}>
-          <Image src={openseaLogo} height={40} width={40} />
+          <Image src={Logo} height={40} width={40} />
           <div className={style.logoText}>Opensea</div>
         </div>
       </Link>
@@ -43,9 +43,11 @@ const Header = () => {
         <div className={style.headerItem}> Stats </div>
         <div className={style.headerItem}> Resources </div>
         <div className={style.headerItem}> Create </div>
-        <div className={style.headerIcon}>
-          <CgProfile />
-        </div>
+        <Link href="/Profile">
+          <div className={style.headerIcon}>
+            <CgProfile />
+          </div>
+        </Link>
         <div className={style.headerIcon}>
           <MdOutlineAccountBalanceWallet />
         </div>
