@@ -8,6 +8,7 @@ import Header from '../Header'
 import { CgWebsite } from 'react-icons/cg'
 import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
 import { HiDotsVertical } from 'react-icons/hi'
+import { Network, Alchemy } from 'alchemy-sdk';
 
 
 const style = {
@@ -34,10 +35,77 @@ const style = {
 
 const Collection = () => {
   const router = useRouter()
+  const { provider } = useWeb3()
   const { collectionId } = router.query
   const [collection, setCollection] = useState({})
   const [nfts, setNfts] = useState([])
   const [listings, setListings] = useState([])
+
+  //create NFT module
+  const nftModule = useMemo(() => {
+    if (!provider) return
+
+    const sdk = new ThirdwebSDK(
+      provider.getSigner(),
+      "https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3"
+    )
+    return sdk.getNFTModule(collectionId)
+  }, [provider])
+
+  // get all NFTs in the collection
+  useEffect(() => {
+    if (!nftModule) return
+    ;(async () => {
+      const nfts = await nftModule.getAll()
+  
+      setNfts(nfts)
+    })()
+  }, [nftModule])
+
+  // create thirdweb marketplace module
+  const marketPlaceModule = useMemo(() => {
+    if (!provider) return
+  
+    const sdk = new ThirdwebSDK(
+      provider.getSigner(),
+      'https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3'
+    )
+    return sdk.getMarketplaceModule(
+      '0x02099f6232AF4Df217EBC0ba129a744EB51F779E'
+    )
+  }, [provider])
+
+  // get all listings in the collection
+  useEffect(() => {
+    if (!marketPlaceModule) return
+    ;(async () => {
+      setListings(await marketPlaceModule.getAllListings())
+    })()
+  }, [marketPlaceModule])
+
+  const fetchCollectionData = async (sanityClient = client, collectionId) => {
+    const query = `*[_type == "Product" && contractAddress == "${collectionId}" ] {
+      "imageUrl": profileImage.asset->url,
+      "bannerImageUrl": bannerImage.asset->url,
+      volumeTraded,
+      createdBy,
+      contractAddress,
+      "creator": createdBy->userName,
+      title, floorPrice,
+      "allOwners": owners[]->,
+      description
+    }`
+
+    const collectionData = await sanityClient.fetch(query)
+
+    // the query returns 1 object inside of an array
+    await setCollection(collectionData[0])
+  }
+
+  useEffect(() => {
+    fetchCollectionData()
+  }, [collectionId])
+
   return (
     <><div>
       <Header />
