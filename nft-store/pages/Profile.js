@@ -41,7 +41,7 @@ const style = {
     const { provider } = useWeb3()
     const { collectionId } = router.query
     const [collection, setCollection] = useState({})
-    const [value, setValue] = useState('change name');
+    const [value, setValue] = useState('');
 
     const fetchCollectionData = async (sanityClient = client, address) => {
       const query = `*[_type == "users" && walletAddress == "${address}" ] {
@@ -107,6 +107,7 @@ const style = {
             <div className={style.midRow}>
         <input className={style.title}
           type="text"
+          placeholder='change name'
           value={value}
           onChange={handleChange}
         />
