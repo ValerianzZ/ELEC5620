@@ -13,7 +13,7 @@ const style = {
     bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
     bannerImage: `w-full object-cover`,
     infoContainer: `w-screen px-4`,
-    midRow: `w-full flex justify-center text-white`,
+    midRow: `w-full flex justify-center`,
     endRow: `w-full flex justify-end text-white`,
     profileImg: `w-40 h-40 object-cover rounded-full border-2 border-[#202225] mt-[-4rem]`,
     socialIconsContainer: `flex text-3xl mb-[-2rem]`,
@@ -29,20 +29,91 @@ const style = {
     ethLogo: `h-6 mr-2`,
     statName: `text-lg w-full text-center mt-1`,
     description: `text-[#8a939b] text-xl w-max-1/4 flex-wrap mt-4`,
+    ctaContainer: `flex`,
+    accentedButton: ` relative text-lg font-semibold px-12 py-4 bg-[#2181e2] rounded-lg mr-5 text-white hover:bg-[#42a0ff] cursor-pointer`,
+    button: ` relative text-lg font-semibold px-12 py-4 bg-[#363840] rounded-lg mr-5 text-[#e4e8ea] hover:bg-[#4c505c] cursor-pointer`,
+    
   }
 
   const Profile = () => {
-    const router = useRouter()
-    const { provider } = useWeb3()
-    const { collectionId } = router.query
+    const { address, connectWallet } = useWeb3()
     const [collection, setCollection] = useState({})
-    const [nfts, setNfts] = useState([])
-    const [listings, setListings] = useState([])
+    const [value, setValue] = useState('');
+
+    const fetchCollectionData = async (sanityClient = client, address) => {
+      const query = `*[_type == "users" && walletAddress == "${address}" ] {
+        "imageUrl": profileImage.asset->url,
+        "bannerImageUrl": bannerImage.asset->url,
+        userName
+      }`
+      
+      const collectionData = await sanityClient.fetch(query)
+  
+      // the query returns 1 object inside of an array
+      await setCollection(collectionData[0])
+    }
+
+    useEffect(() => {
+      fetchCollectionData(client,address)
+    }, [address])
+
+    const changeUsername = (name) => {
+      client
+        .patch(address)
+        .set({userName: name})
+        .commit()
+        .catch((err) => {
+          console.error('Oh no, the update failed: ', err.message)
+        })
+    }
+
+    const handleChange = event => {
+      setValue(event.target.value);
+    };
 
     return (
-        <div>
-            <Header />
+      <div className="overflow-hidden">
+    <Header />
+    <div className={style.bannerImageContainer}>
+    <img
+      className={style.bannerImage}
+      src={
+        collection?.bannerImageUrl
+          ? collection.bannerImageUrl
+          : 'https://via.placeholder.com/200'
+      }
+      alt="banner"
+    />
+  </div>
+      <div className={style.infoContainer}>
+        <div className={style.midRow}>
+          <img
+            className={style.profileImg}
+            src={
+              collection?.imageUrl
+                ? collection.imageUrl
+                : 'https://via.placeholder.com/200'
+            }
+            alt="profile image"
+          />
         </div>
+      </div>
+      <div className={style.midRow}>
+            <div className={`text-white`}>Current name: {collection?.userName}</div>
+      </div>
+      <div className={style.midRow}>
+        <input className={style.title}
+          type="text"
+          placeholder='change name'
+          value={value}
+          onChange={handleChange}
+        />
+        <div className={style.ctaContainer}>
+            <button className={style.button} onClick={() => {changeUsername(value)}}>Change Username</button>
+        </div>
+      </div>
+
+      </div>
     )
   }
 
