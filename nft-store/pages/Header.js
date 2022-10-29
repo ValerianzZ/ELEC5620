@@ -8,6 +8,7 @@ import Logo from '../assets/logo.png'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { CgProfile } from 'react-icons/cg'
 import { MdOutlineAccountBalanceWallet } from 'react-icons/md'
+import toast, { Toaster } from 'react-hot-toast'
 
 const style = {
   wrapper: `bg-[#04111d] w-screen px-[1.2rem] py-[0.8rem] flex `,
@@ -23,8 +24,9 @@ const style = {
 
 const Header = () => {
   const { provider } = useWeb3()
-  const [NFTlist, setNFTlist] = useState()
+  const [NFTlist, setNFTlist] = useState([])
   const [listings, setListings] = useState([])
+  const [value, setValue] = useState('');
 
   const nftModule = useMemo(() => {
     if (!provider) return
@@ -51,8 +53,7 @@ const Header = () => {
     if (!provider) return
 
     const sdk = new ThirdwebSDK(
-      provider.getSigner(),
-      'https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3'
+      provider.getSigner()
     )
 
     return sdk.getMarketplaceModule(
@@ -68,18 +69,42 @@ const Header = () => {
     })()
   }, [marketPlaceModule])
 
-  const onSearch = (() => {
-    if (!NFTlist==undefined){
-      const selectedNftItem = NFTlist.find((nft) => nft.name === "#2020")
-      console.log(selectedNftItem)
+  const handleChange = event => {
+    setValue(event.target.value);
+    console.log(event.target.value);
+
+  };
+
+  const onSearch = (searchItem) => {
+    const listing = NFTlist.find((listing) => listing.name === searchItem)
+    const listed = listings.find((listing) => listing.asset.name === searchItem)
+    if (Boolean(listing)){
+      var path = '/nfts/'+ listing.id.toString()
+      if(Boolean(listed)){
+        path = path + '?isListed=true'
+      }else{
+        console.log(listed)
+        path = path + '?isListed=false'
+      }
+      window.location.href=path
+    }else{
+      const toastHandler = toast
+      toastHandler.success(`No result`, {
+        style: {
+          background: '#04111d',
+          color: '#fff',
+      },
+    })
     }
-  })
+    
+  }
 
   console.log(NFTlist)
   console.log(listings)
 
   return (
     <div className={style.wrapper}>
+    <Toaster position="top-center" reverseOrder={false} />
       <Link href="/">
         <div className={style.logoContainer}>
           <Image src={Logo} height={40} width={40} />
@@ -92,8 +117,26 @@ const Header = () => {
         </div>
         <input
           className={style.searchInput}
+          type="text" 
           placeholder="Search"
+          value={value}
+          onChange={handleChange}
         />
+        <div className={'w-full text-white'}>
+        {NFTlist.filter(NFT=>{
+          const searchItem = value
+          const NFTname = NFT.name
+          console.log(searchItem)
+
+          return searchItem && NFTname.toString().startsWith(searchItem)
+        })
+          .map((NFT) => (
+          <div onClick={()=>onSearch(NFT.name)}>{NFT.name}</div>
+        ))}
+        </div>
+        <button className={style.searchIcon} 
+          onClick={()=>onSearch(value)}>
+          search</button>
       </div>
       <div className={style.headerItems}>
         <Link href="/collections/0x7D98cf0A84669Fa5f13A4EC3070d0C0ca4060887">
@@ -112,6 +155,7 @@ const Header = () => {
         </div>
       </div>
     </div>
+    
   )
 }
 

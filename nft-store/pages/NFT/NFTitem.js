@@ -28,6 +28,7 @@ const NFTitem= ({ nftItem, title, listings }) => {
         if (Boolean(listing)) {
           setIsListed(true)
           setPrice(listing.buyoutCurrencyValuePerToken.displayValue/1000000000000000000)
+          console.log(listing.price)
         }
       }, [listings, nftItem])
     

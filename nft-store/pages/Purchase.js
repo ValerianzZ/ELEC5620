@@ -51,7 +51,6 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
     module = marketPlaceModule,
     errorTriger = false
   ) => {
-    console.log(listingId, quantityDesired, module, 'david')
     await module
       .buyoutDirectListing({
         listingId: listingId,
@@ -64,7 +63,6 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
     }else{
       confirmPurchase()
     }
-    
   }
 
   return (
