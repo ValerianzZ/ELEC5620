@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import NFTimage from '../NFT/NFTimage'
 import NFTdetail from '../NFT/NFTdetail'
 import NFTitemActivity from '../NFT/NFTitemActivity'
+import Purchase from '../Purchase'
 
 const style = {
     wrapper: `flex flex-col items-center container-lg text-[#e5e8eb]`,
@@ -77,7 +78,12 @@ const NFTItem = () => {
             </div>
             <div className={style.detailsContainer}>
               <NFTdetail selectedNft={selectedNft} />
-              
+              <Purchase
+                isListed={router.query.isListed}
+                selectedNft={selectedNft}
+                listings={listings}
+                marketPlaceModule={marketPlaceModule}
+              />
             </div>
           </div>
           <NFTitemActivity />
