@@ -31,7 +31,7 @@ const Main = () => {
               NFT-Club is the Austrlia&apos;s first and largest NFT marketplace
             </div>
             <div className={style.ctaContainer}>
-            <Link href="/Collections">
+            <Link href="/explorerindex">
               <button className={style.accentedButton}>Explore</button>
               </Link>
               <button className={style.button}>Create</button>
