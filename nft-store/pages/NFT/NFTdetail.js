@@ -34,25 +34,6 @@ const NFTdetail = ({ selectedNft }) => {
           </div>
         </div>
       </div>
-      <div className={style.actionButtonsContainer}>
-        <div className={style.actionButtons}>
-          <div className={`${style.actionButton} ml-2`}>
-            <MdRefresh />
-          </div>
-          <div className={style.divider} />
-          <div className={style.actionButton}>
-            <RiShareBoxLine />
-          </div>
-          <div className={style.divider} />
-          <div className={style.actionButton}>
-            <GiShare />
-          </div>
-          <div className={style.divider} />
-          <div className={`${style.actionButton} mr-2`}>
-            <FiMoreVertical />
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

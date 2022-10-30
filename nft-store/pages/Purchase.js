@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-
-import { HiTag } from 'react-icons/hi'
+import { useEffect, useState, useMemo} from 'react'
 import { IoMdWallet } from 'react-icons/io'
 import toast, { Toaster } from 'react-hot-toast'
+import { useWeb3 } from '@3rdweb/hooks'
+import { ThirdwebSDK } from '@3rdweb/sdk'
 
 const style = {
   button: `mr-8 flex items-center py-2 px-12 rounded-lg cursor-pointer`,
@@ -13,6 +13,19 @@ const style = {
 const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
   const [selectedMarketNft, setSelectedMarketNft] = useState()
   const [enableButton, setEnableButton] = useState(false)
+  const { provider } = useWeb3()
+
+  // create marketplace module
+  const marketPlace = useMemo(() => {
+    if (!provider) return
+
+    const sdk = new ThirdwebSDK(provider.getSigner())
+
+    return sdk.getMarketplaceModule(
+      '0x02099f6232AF4Df217EBC0ba129a744EB51F779E'
+    )
+  }, [provider])
+
 
   useEffect(() => {
     if (!listings || isListed === 'false') return
@@ -46,20 +59,19 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
     })
 
   const buyItem = async (
-    listingId = selectedMarketNft.id,
-    quantityDesired = 1,
-    module = marketPlaceModule,
+    listingId,
+    quantityDesired,
+    module = marketPlace,
     errorTriger = false
   ) => {
     await module
-      .buyoutDirectListing({
-        listingId: listingId,
-        quantityDesired: quantityDesired,
-      })
+      .buyoutListing(listingId,quantityDesired)
       .catch((error) => console.error(error),
       errorTriger = true)
     if(errorTriger){
       failPurchase()
+      console.log(module)
+      console.log(listingId)
     }else{
       confirmPurchase()
     }
@@ -78,12 +90,6 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
           >
             <IoMdWallet className={style.buttonIcon} />
             <div className={style.buttonText}>Buy Now</div>
-          </div>
-          <div
-            className={`${style.button} border border-[#151c22]  bg-[#363840] hover:bg-[#4c505c]`}
-          >
-            <HiTag className={style.buttonIcon} />
-            <div className={style.buttonText}>Make Offer</div>
           </div>
         </>
       ) : (

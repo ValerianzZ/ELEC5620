@@ -34,21 +34,25 @@ const style = {
     ctaContainer: `flex`,
     accentedButton: ` relative text-lg font-semibold px-12 py-4 bg-[#2181e2] rounded-lg mr-5 text-white hover:bg-[#42a0ff] cursor-pointer`,
     button: ` relative text-lg font-semibold px-12 py-4 bg-[#363840] rounded-lg mr-5 text-[#e4e8ea] hover:bg-[#4c505c] cursor-pointer`,
-    
   }
+
   const wallts = () => {
     const { address, connectWallet,  } = useWeb3()
     const [collection, setCollection] = useState({})
+    const [balance, setBalance] = useState()
 
-      const Web3 = require('web3')
-      const provider = new Web3.providers.HttpProvider('https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3')
-      const web3 = new Web3(provider)
-      web3.eth.getBalance('0x51c1497c5e19D48352301Ce55067Fe5032bcFf81').then(balance => {
+    const Web3 = require('web3')
+    const provider = new Web3.providers.HttpProvider('https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3')
+    const web3 = new Web3(provider)
+    const accountBalance = useMemo(()=>{
+      if(!address) return
+
+      web3.eth.getBalance(address).then(balance => {
         const ether = web3.utils.fromWei(balance, 'ether')
-        console.log(ether)
-      })
-        
-
+        setBalance(ether)
+        return ether
+        })
+      },[address])
 
     const fetchCollectionData = async (sanityClient = client, address) => {
       const query = `*[_type == "users" && walletAddress == "${address}" ] {
@@ -62,7 +66,6 @@ const style = {
       // the query returns 1 object inside of an array
       await setCollection(collectionData[0])
     }
-
 
     useEffect(() => {
       fetchCollectionData(client,address)
@@ -97,6 +100,9 @@ const style = {
       </div>
       <div className={style.midRow}>
             <div className={`text-white`}>Current address: {address}</div>
+      </div>
+      <div className={style.midRow}>
+            <div className={`text-white`}>Current balance: {balance}</div>
       </div>
       </div>
     )

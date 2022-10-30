@@ -26,8 +26,7 @@ const NFTItem = () => {
         if (!provider) return
     
         const sdk = new ThirdwebSDK(
-          provider.getSigner(),
-          'https://eth-goerli.g.alchemy.com/v2/ub2BKlAt_8kl54KpRkJ6M82zncKbcsY3'
+          provider.getSigner()
         )
         return sdk.getNFTModule('0x7D98cf0A84669Fa5f13A4EC3070d0C0ca4060887')
       }, [provider])

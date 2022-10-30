@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import { ThirdwebWeb3Provider } from '@3rdweb/hooks'
 
+
 /**
  * The chain ID 5 represents the Goerli network
  * The `injected` connector is a web3 connection method used by Metamask
