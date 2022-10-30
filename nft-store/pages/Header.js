@@ -141,7 +141,7 @@ const Header = () => {
         <Link href="/broadcast">
           <div className={style.headerItem}> Notification </div>
         </Link>
-        <Link href="/">
+        <Link href="/createindex">
         <div className={style.headerItem}> Create </div>
         </Link>
         <Link href="/Profile">
@@ -152,7 +152,6 @@ const Header = () => {
         <Link href="/wallts">
         <div className={style.headerIcon}>
           <MdOutlineAccountBalanceWallet />
-          
         </div>
         </Link>
       </div>

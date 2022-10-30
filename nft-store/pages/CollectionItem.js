@@ -31,14 +31,14 @@ const CollectionItem= ({ collection }) => {
           }}
         >
           <div className={style.imgContainer}>
-            <img src={collection.imageUrl} alt={collection.creator} className={style.nftImg} />
+            <img src={collection?.imageUrl} alt={collection?.creator} className={style.nftImg} />
           </div>
           <div className={style.details}>
           <div className={style.info}>
             <div className={style.infoLeft}>
-              <div className={style.collectionName}>{collection.title}</div>
-              <div className={style.assetName}>Creator: {collection.creator}</div>
-              <div className={style.assetName}>Description: {collection.description}</div>
+              <div className={style.collectionName}>{collection?.title}</div>
+              <div className={style.assetName}>Creator: {collection?.creator}</div>
+              <div className={style.assetName}>Description: {collection?.description}</div>
             </div>
             </div>
             </div>

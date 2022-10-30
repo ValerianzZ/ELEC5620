@@ -43,13 +43,13 @@ const NFTitem= ({ nftItem, title, listings }) => {
           }}
         >
           <div className={style.imgContainer}>
-            <img src={nftItem.image} alt={nftItem.name} className={style.nftImg} />
+            <img src={nftItem?.image} alt={nftItem?.name} className={style.nftImg} />
           </div>
           <div className={style.details}>
             <div className={style.info}>
               <div className={style.infoLeft}>
                 <div className={style.collectionName}>{title}</div>
-                <div className={style.assetName}>{nftItem.name}</div>
+                <div className={style.assetName}>{nftItem?.name}</div>
               </div>
               {isListed && (
                 <div className={style.infoRight}>
@@ -69,7 +69,7 @@ const NFTitem= ({ nftItem, title, listings }) => {
               <span className={style.likeIcon}>
                 <BiHeart />
               </span>{' '}
-              {nftItem.likes}
+              {nftItem?.likes}
             </div>
           </div>
         </div>
