@@ -100,7 +100,11 @@ const Header = () => {
         <Link href="/collections/0x7D98cf0A84669Fa5f13A4EC3070d0C0ca4060887">
           <div className={style.headerItem}> Collections </div>
         </Link>
-        <div className={style.headerItem}> Stats </div>
+        
+        <Link href="/broadcast">
+          <div className={style.headerItem}> Notification </div>
+        </Link>
+        
         <div className={style.headerItem}> Create </div>
         <Link href="/Profile">
           <div className={style.headerIcon}>
