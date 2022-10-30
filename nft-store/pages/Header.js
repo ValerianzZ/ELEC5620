@@ -97,11 +97,7 @@ const Header = () => {
       },
     })
     }
-    
   }
-
-  console.log(NFTlist)
-  console.log(listings)
 
   return (
     <div className={style.wrapper}>
@@ -127,7 +123,6 @@ const Header = () => {
         {NFTlist.filter(NFT=>{
           const searchItem = value
           const NFTname = NFT.name
-          console.log(searchItem)
 
           return searchItem && NFTname.toString().startsWith(searchItem)
         })
@@ -140,7 +135,7 @@ const Header = () => {
           search</button>
       </div>
       <div className={style.headerItems}>
-        <Link href="/collections/0x7D98cf0A84669Fa5f13A4EC3070d0C0ca4060887">
+        <Link href="/Collections">
           <div className={style.headerItem}> Collections </div>
         </Link>
         <div className={style.headerItem}> Stats </div>
