@@ -12,12 +12,53 @@ const Create = () => {
 
   // Connect to our marketplace contract via the useMarketplace hook
   const marketplace = useMarketplace(
-    "0x02099f6232AF4Df217EBC0ba129a744EB51F779E", // Your marketplace contract address here
+    "0x02099f6232AF4Df217EBC0ba129a744EB51F779E",// Your marketplace contract address here
   );
   const networkMismatch = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
 
-  return <div></div>;
+  return (
+    <form onSubmit={(e) => handleCreateListing(e)}>
+      <div>
+        {/* Form Section */}
+        <div>
+          <h1>Upload your NFT to the marketplace:</h1>
+  
+          {/* Toggle between direct listing and auction listing */}
+          <div>
+            <input
+              type="radio"
+              name="listingType"
+              id="directListing"
+              value="directListing"
+              defaultChecked
+            />
+            <input
+              type="radio"
+              name="listingType"
+              id="auctionListing"
+              value="auctionListing"
+            />
+          </div>
+  
+          {/* NFT Contract Address Field */}
+          <input
+            type="text"
+            name="contractAddress"
+            placeholder="NFT Contract Address"
+          />
+  
+          {/* NFT Token ID Field */}
+          <input type="text" name="tokenId" placeholder="NFT Token ID" />
+  
+          {/* Sale Price For Listing Field */}
+          <input type="text" name="price" placeholder="Sale Price" />
+  
+          <button type="submit">Create Listing</button>
+        </div>
+      </div>
+    </form>
+  );
 };
 
 export default Create;
@@ -29,7 +70,7 @@ export default Create;
 // - type of listing (either auction or direct)
 // - price of the NFT
 // This function gets called when the form is submitted.
-async function handleCreateListing(e: any) {
+async function handleCreateListing(e) {
   try {
     // Ensure user is on the correct network
     if (networkMismatch) {
@@ -75,9 +116,9 @@ async function handleCreateListing(e: any) {
 }
 
 async function createAuctionListing(
-  contractAddress: string,
-  tokenId: string,
-  price: string,
+  contractAddress,
+  tokenId,
+  price,
 ) {
   try {
     const transaction = await marketplace?.auction.createListing({
@@ -98,9 +139,9 @@ async function createAuctionListing(
 }
 
 async function createDirectListing(
-  contractAddress: string,
-  tokenId: string,
-  price: string,
+  contractAddress,
+  tokenId,
+  price,
 ) {
   try {
     const transaction = await marketplace?.direct.createListing({
@@ -119,45 +160,3 @@ async function createDirectListing(
   }
 }
 
-return (
-  <form onSubmit={(e) => handleCreateListing(e)}>
-    <div>
-      {/* Form Section */}
-      <div>
-        <h1>Upload your NFT to the marketplace:</h1>
-
-        {/* Toggle between direct listing and auction listing */}
-        <div>
-          <input
-            type="radio"
-            name="listingType"
-            id="directListing"
-            value="directListing"
-            defaultChecked
-          />
-          <input
-            type="radio"
-            name="listingType"
-            id="auctionListing"
-            value="auctionListing"
-          />
-        </div>
-
-        {/* NFT Contract Address Field */}
-        <input
-          type="text"
-          name="contractAddress"
-          placeholder="NFT Contract Address"
-        />
-
-        {/* NFT Token ID Field */}
-        <input type="text" name="tokenId" placeholder="NFT Token ID" />
-
-        {/* Sale Price For Listing Field */}
-        <input type="text" name="price" placeholder="Sale Price" />
-
-        <button type="submit">Create Listing</button>
-      </div>
-    </div>
-  </form>
-);

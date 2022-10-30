@@ -9,6 +9,7 @@
     "@3rdweb/hooks": "^1.8.0",
     "@3rdweb/sdk": "^1.36.11",
     "@sanity/client": "^2.23.2",
+    "@thirdweb-dev/react": "^3.4.4",
     "alchemy-sdk": "^2.2.0",
     "next": "latest",
     "react": "18.2.0",
