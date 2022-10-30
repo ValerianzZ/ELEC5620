@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { ThirdwebSDK } from "@3rdweb/sdk";
 import { ethers } from "ethers";
 
 export default async function handler(req, res) {
@@ -11,6 +11,8 @@ export default async function handler(req, res) {
     body: { name, description, image },
   } = req;
 
+  console.log("body")
+
   const sdk = new ThirdwebSDK(
     new ethers.Wallet(
       process.env.WALLET_PRIVATE_KEY,
@@ -19,7 +21,7 @@ export default async function handler(req, res) {
   );
 
   const collection = await sdk.getNFTCollection(
-    process.env.NEXT_PUBLIC_NFT_COLLECTION_ADDRESS
+    '0x7D98cf0A84669Fa5f13A4EC3070d0C0ca4060887'
   );
 
   const signature = await collection.signature.generate({
