@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   const sdk = new ThirdwebSDK(
     new ethers.Wallet(
       process.env.WALLET_PRIVATE_KEY,
-      ethers.getDefaultProvider("https://matic-mumbai.chainstacklabs.com")
+      ethers.getDefaultProvider("https://goerli.infura.io/v3/")
     )
   );
 

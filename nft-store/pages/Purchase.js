@@ -10,7 +10,7 @@ const style = {
   buttonText: `ml-2 text-lg font-semibold`,
 }
 
-const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
+const Purchase = ({ isListed, selectedNft, listings }) => {
   const [selectedMarketNft, setSelectedMarketNft] = useState()
   const [enableButton, setEnableButton] = useState(false)
   const { provider } = useWeb3()
@@ -20,6 +20,8 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
     if (!provider) return
 
     const sdk = new ThirdwebSDK(provider.getSigner())
+    console.log(sdk)
+    console.log(sdk.signer.getAddress())
 
     return sdk.getMarketplaceModule(
       '0x02099f6232AF4Df217EBC0ba129a744EB51F779E'
