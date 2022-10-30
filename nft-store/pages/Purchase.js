@@ -27,6 +27,7 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
   }, [provider])
 
 
+
   useEffect(() => {
     if (!listings || isListed === 'false') return
     ;(async () => {
@@ -65,7 +66,10 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
     errorTriger = false
   ) => {
     await module
-      .buyoutListing(listingId,quantityDesired)
+      .buyoutDirectListing({
+        listingId,
+        quantityDesired,
+      })
       .catch((error) => console.error(error),
       errorTriger = true)
     if(errorTriger){

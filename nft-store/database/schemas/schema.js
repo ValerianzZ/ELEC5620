@@ -98,6 +98,23 @@ export default createSchema({
           },
         ],
       },
+      {
+        name: 'broadcast',
+        type: 'document',
+        title: 'Broadcast',
+        fields: [
+          {
+            name: 'title',
+            type: 'string',
+            title:'Title'
+          },
+          {
+            name: 'content',
+            type: 'string',
+            title: 'Content'
+          }
+        ]
+      },
     ]
     /* Your types here! */
   ),
