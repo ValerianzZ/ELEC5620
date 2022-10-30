@@ -27,7 +27,7 @@ const NFTdetail = ({ selectedNft }) => {
         <div className={style.nftTitle}>{selectedNft?.name}</div>
         <div className={style.otherInfo}>
           <div className={style.ownedBy}>
-            Owned by <span className={style.accent}>Zhiying</span>
+            Owned by <span className={style.accent}>Zhiyin</span>
           </div>
           <div className={style.likes}>
             <AiFillHeart className={style.likeIcon} /> 1.5K favorites

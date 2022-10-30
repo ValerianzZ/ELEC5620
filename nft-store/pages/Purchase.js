@@ -67,7 +67,7 @@ const Purchase = ({ isListed, selectedNft, listings, marketPlaceModule }) => {
 
   return (
     <div className="flex h-20 w-full items-center rounded-lg border border-[#151c22] bg-[#303339] px-12">
-      <Toaster position="bottom-left" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       {isListed === 'true' ? (
         <>
           <div
