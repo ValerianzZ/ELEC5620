@@ -147,11 +147,12 @@ const Header = () => {
             <CgProfile />
           </div>
         </Link>
+        <Link href="/wallts">
         <div className={style.headerIcon}>
           <MdOutlineAccountBalanceWallet />
-
-
+          
         </div>
+        </Link>
       </div>
     </div>
     
