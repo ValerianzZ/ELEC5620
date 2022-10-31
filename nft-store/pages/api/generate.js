@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
   const {
     body: { name, description, image },
-  } = req;
+  } = req.query;
 
   console.log("body")
 
@@ -32,5 +32,5 @@ export default async function handler(req, res) {
     },
   });
 
-  res.json({ message: "Signature generated successfully", signature });
+  res.json(signature );
 }

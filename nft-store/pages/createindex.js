@@ -30,11 +30,13 @@ const Createindex = () => {
     setLoading(true);
     console.log(name, description, image)
 
-    const res = await axios.post("/api/generate", { name, description, image });
+    const body = { name, description, image }
+    const res = await fetch(`/api/generate?wallet=${body}`);
 
-    const { signature } = res.data;
+    const { signature } = await res.json()
+    console.log(signature)
 
-    await collection.signature.mint(signature);
+    await collection.mint(signature);
 
     alert("NFT Minted successfully!");
     setLoading(false);
